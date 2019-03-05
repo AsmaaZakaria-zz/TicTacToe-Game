@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import Menu from 'material-ui/svg-icons/navigation/menu';
 import {Link} from 'react-router';
+import {NavToggleButton} from '../styled/NavDrawer';
 
 class NavDrawer extends Component {
     state = {
-        open: false,
+        open: true,
+        width: 250,
     }
 
     toggle = () => {
@@ -20,13 +20,18 @@ class NavDrawer extends Component {
     }
 
     render() {
-        const { open } = this.state;
+        const { open, width } = this.state;
         return (
           <div>
-              <FloatingActionButton onClick={this.toggle}>
-                  <Menu />
-              </FloatingActionButton>
-              <Drawer open={open}>
+              <NavToggleButton
+                  open={open}
+                  width={width}
+                  toggle={this.toggle}
+              />
+              <Drawer
+                  open={open}
+                  width={width}
+              >
                   <div style={{height: '200px', width: '100%', backgroundColor: 'salmon'}}>
                       LoginContainer
                   </div>
