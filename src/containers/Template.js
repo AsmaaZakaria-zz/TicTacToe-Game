@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import NavDrawer from '../components/NavDrawer';
 
 class Template extends Component {
     render() {
         return (
           <MuiThemeProvider>
               <div>
-                  <header>
-                      <h1>TicTacToe Game</h1>
-                  </header>
+                  <NavDrawer />
                   <main>
                       {this.props.children}
                   </main>
