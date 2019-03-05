@@ -6,13 +6,29 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Menu from 'material-ui/svg-icons/navigation/menu';
 
 class NavDrawer extends Component {
+    state = {
+        open: false,
+    }
+
+    toggle = () => {
+        this.setState((prevState, props) => {
+            return {
+                open: !prevState.open
+            }
+        })
+    }
+
     render() {
+        const { open } = this.state;
         return (
           <div>
-              <FloatingActionButton>
+              <FloatingActionButton onClick={this.toggle}>
                   <Menu />
               </FloatingActionButton>
-              <Drawer>
+              <Drawer open={open}>
+                  <div style={{height: '200px', width: '100%', backgroundColor: 'salmon'}}>
+                      LoginContainer
+                  </div>
                   <Divider />
                   <MenuItem primaryText={'Play'}/>
                   <MenuItem primaryText={'Profile'}/>
