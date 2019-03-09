@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
 import {Stage} from 'react-konva';
-import Board from '../styled/TicTacToe';
+import {Board, Squares} from '../styled/TicTacToe';
 
 class TicTacToe extends Component {
 
     state = {
         rows: 3,
+        gameState: new Array(9).fill(false),
+        ownMark: 'X',
+        otherMark: 'O',
+        yourTurn: true,
+        win: false,
+        winner: false,
+        gameOver: false,
     }
 
     componentWillMount() {
@@ -22,22 +29,54 @@ class TicTacToe extends Component {
         // this is the size of each square in the board
         let unit = size / rows
 
+        // coordinates for 9 squares
+        let coordinates = [];
+        for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < rows; x++) {
+                coordinates.push([x*unit, y*unit])
+            }
+        }
+
         // when my component mount => i will have these 3 vars
         this.setState({     // Object initializer shorthand
             size,
             rows,
-            unit
+            unit,
+            coordinates
         });
     }
 
+    move = (marker, index) => {
+        console.log('Move: ', marker, index);
+    }
+
     render() {
-        let {unit, size, rows} = this.state;
+        let {
+            unit,
+            size,
+            rows,
+            coordinates,
+            gameState,
+            win,
+            gameOver,
+            yourTurn,
+            ownMark
+        } = this.state;
 
         return (
           <div>
               <Stage width={size} height={size}>
                   <Board unit={unit} size={size} rows={rows}/>
-                  {/*<Squares />*/}
+                  <Squares
+                      unit={unit}
+                      coordinates={coordinates}
+                      gameState={gameState}
+                      win={win}
+                      gameOver={gameOver}
+                      yourTurn={yourTurn}
+                      ownMark={ownMark}
+                      move={this.move}
+                  />
               </Stage>
           </div>
         )

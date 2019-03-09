@@ -1,7 +1,7 @@
 import React from 'react';
-import {Layer, Line} from 'react-konva';
+import {Layer, Line, Text} from 'react-konva';
 
-const Board = ({unit, size, rows}) => {
+export const Board = ({unit, size, rows}) => {
     let grid = [];
     let stroke = 'grey';
     let strokeWidth = 10
@@ -33,4 +33,49 @@ const Board = ({unit, size, rows}) => {
     )
 }
 
-export default Board;
+export const Squares = ({
+    unit,
+    coordinates,
+    gameState,
+    win,
+    gameOver,
+    yourTurn,
+    ownMark,
+    move
+}) => {
+    let squares = coordinates.map((pos, index) => {
+        let makeMove = move;
+        let mark = gameState[index];
+        let fill = 'black';
+        if (win && win.includes(index)) {
+            fill = 'lightgreen'
+        }
+        if (gameOver || !yourTurn || mark) {
+            console.log('stop!');
+        }
+        return (
+            <Text
+                key={index}
+                index={index}
+                x={pos[0]}
+                y={pos[1]}
+                fontSize={unit}
+                width={unit}
+                text={mark}
+                fill={fill}
+                fontFamily='Helvetica'
+                align={'center'}
+                onClick={(event) => {
+                    let index = event.target.index;
+                    makeMove(ownMark, index);
+                }}
+            />
+        )
+    });
+
+    return (
+        <Layer>
+            {squares}
+        </Layer>
+    )
+}
